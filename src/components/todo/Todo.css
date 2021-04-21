@@ -1,0 +1,41 @@
+.todo {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.todo__title {
+  font-weight: bold;
+  z-index: 2;
+  font-size: 1.5rem;
+  color: white;
+  text-transform: uppercase;
+  /* border: 2px solid rgb(137, 188, 255); */
+  background-color: #525252;
+  box-shadow: 0px 0 6px 2px #8c8c8c;
+  /* border-radius: 0.5rem; */
+  padding: 0.2rem;
+
+  position: absolute;
+
+  top: 3%;
+  margin: auto;
+  left: 0;
+  right: 0;
+}
+
+.todo__cards {
+  padding: 3rem 1rem 1rem 1rem;
+  height: 100%;
+  /* border: 1px solid red; */
+  overflow-y: scroll !important;
+}
+
+.todo__cards::-webkit-scrollbar {
+  width: 4px;
+}
+
+.todo__cards::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: #525252;
+}

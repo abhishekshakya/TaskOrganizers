@@ -1,0 +1,97 @@
+.card {
+  margin: 0.7rem 0;
+  /* border: 1px solid #2c2c2c; */
+  padding: 00.5rem;
+  border-radius: 0.2rem;
+  position: relative;
+  color: #2c2c2c;
+  z-index: 0;
+  background-color: white;
+  overflow: hidden;
+  box-shadow: 2px 2px 6px -1px #6e6e6e;
+  transition: 100ms;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  box-shadow: 3px 3px 12px -2px #838383;
+  transform: scale(1.02);
+}
+
+.card > p {
+  padding: 3px;
+  margin: 0.3em 0;
+}
+
+.card__title {
+  font-weight: bold;
+  border-bottom: 1px solid #2c2c2c;
+  text-align: start;
+  cursor: default;
+}
+
+.card__etitle {
+  border: none;
+  outline: none;
+  font-weight: bold;
+  border-bottom: 1px solid #2c2c2c;
+  text-align: left;
+  width: 100%;
+  padding: 3px;
+  margin: 0.3em 0;
+  font-size: 1rem;
+  color: #7f61b3;
+}
+
+.card__desc {
+  min-height: fit-content;
+  max-height: 50px;
+  /* width: 300px; */
+  text-align: justify;
+  padding: 0.5rem !important;
+  background-color: rgb(243, 243, 243);
+  border-radius: 0 0 0.5rem 0.5rem;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.card__edesc {
+  resize: none;
+  border: none;
+  outline: none;
+  text-align: left;
+  width: 100%;
+  padding: 3px;
+  margin: 0.3em 0;
+  font-size: 1rem;
+  font-family: inherit;
+  text-align: justify;
+  padding: 0.5rem !important;
+  background-color: rgb(243, 243, 243);
+  border-radius: 0 0 0.5rem 0.5rem;
+  color: #7f61b3;
+}
+
+.card__line {
+  height: 0.3rem;
+  border-radius: 15px;
+  position: absolute;
+  z-index: 1;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 100%;
+  /* background-color: #f03616; */
+  /* background-color: #ffe600; */
+  /* background-color: #3977eb; */
+  /* box-shadow: 2px 2px 15px -2px #f7e64d; */
+  /* box-shadow: 0px 0px 7px -1px #f03616; */
+}
+
+.card__icons {
+  position: absolute;
+  right: 0;
+  top: 0;
+}

@@ -2,6 +2,24 @@
   text-align: center;
 }
 
+.App__body {
+  display: flex;
+  width: 85%;
+  margin: auto;
+  height: 90vh;
+}
+
+.App__body > * {
+  background-color: #dfe6ee;
+  height: 100%;
+  /* border: 2px solid #b6b6cc; */
+  margin: 0 0.3rem;
+  padding: 1rem;
+  border-radius: 0.2rem;
+  /* overflow-y: scroll !important; */
+  /* height: 95%; */
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -34,5 +52,11 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1000px) {
+  .App__body {
+    width: 100%;
   }
 }
