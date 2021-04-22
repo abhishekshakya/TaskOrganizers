@@ -4,7 +4,10 @@
 
 .App__body {
   display: flex;
-  width: 85%;
+  width: 80%;
+  /* overflow-x: scroll; */
+  /* min-width: 1000px; */
+  /* max-width: 80%; */
   margin: auto;
   height: 90vh;
 }

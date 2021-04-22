@@ -1,5 +1,9 @@
 import React from "react";
-import { Draggable, DroppableProvided } from "react-beautiful-dnd";
+import {
+  Draggable,
+  DroppableProvided,
+  DroppableStateSnapshot,
+} from "react-beautiful-dnd";
 import { Card } from "../card/Card";
 import "./Doing.css";
 
@@ -15,15 +19,20 @@ interface DoingProps {
   doneList?: Array<data>;
   setList: React.Dispatch<React.SetStateAction<data[]>>;
   provided: DroppableProvided;
+  snapshot: DroppableStateSnapshot;
 }
 
-export const Doing: React.FC<DoingProps> = ({
+const Doing: React.FC<DoingProps> = ({
   doneList,
   setList,
   provided,
+  snapshot,
 }) => {
   return (
-    <div className="todo">
+    <div
+      className="todo"
+      style={{ backgroundColor: snapshot.isDraggingOver ? "#a7deab" : "" }}
+    >
       <p className="todo__title">In Progress</p>
       <div
         className="todo__cards"
@@ -33,8 +42,13 @@ export const Doing: React.FC<DoingProps> = ({
         {doneList &&
           doneList.map((item, index) => (
             <Draggable draggableId={item.Key} index={index} key={item.Key}>
-              {(provided) => (
-                <Card provided={provided} data={item} setList={setList} />
+              {(provided, snapshott) => (
+                <Card
+                  snapshot={snapshott}
+                  provided={provided}
+                  data={item}
+                  setList={setList}
+                />
               )}
             </Draggable>
           ))}
@@ -43,3 +57,5 @@ export const Doing: React.FC<DoingProps> = ({
     </div>
   );
 };
+
+export default React.memo(Doing);

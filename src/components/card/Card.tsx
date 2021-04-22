@@ -1,7 +1,7 @@
 import { IconButton } from "@material-ui/core";
-import { Close, Done, Edit, Save } from "@material-ui/icons";
+import { Close, Done, Edit } from "@material-ui/icons";
 import React, { useState } from "react";
-import { Draggable, DraggableProvided } from "react-beautiful-dnd";
+import { DraggableProvided, DraggableStateSnapshot } from "react-beautiful-dnd";
 import "./Card.css";
 
 interface data {
@@ -18,9 +18,15 @@ interface CardProps {
   data: data;
   setList: React.Dispatch<React.SetStateAction<data[]>>;
   provided: DraggableProvided;
+  snapshot: DraggableStateSnapshot;
 }
 
-export const Card: React.FC<CardProps> = ({ data, setList, provided }) => {
+export const Card: React.FC<CardProps> = ({
+  data,
+  setList,
+  provided,
+  snapshot,
+}) => {
   const [click, setClick] = useState(false);
   const [edit, setEdit] = useState(false);
 
@@ -47,7 +53,10 @@ export const Card: React.FC<CardProps> = ({ data, setList, provided }) => {
       {...provided.draggableProps}
       ref={provided.innerRef}
       className="card"
-      style={edit ? { borderTop: "4px solid #9473ce" } : {}}
+      style={{
+        borderTop: edit ? "4px solid #9473ce" : undefined,
+        ...provided.draggableProps.style,
+      }}
     >
       <div className="card__icons">
         {edit ? (
@@ -107,4 +116,15 @@ export const Card: React.FC<CardProps> = ({ data, setList, provided }) => {
       />
     </div>
   );
+  // return (
+  //   <div
+  //     {...provided.dragHandleProps}
+  //     {...provided.draggableProps}
+  //     ref={provided.innerRef}
+  //     className="card"
+  //     style={edit ? { borderTop: "4px solid #9473ce" } : undefined}
+  //   >
+  //     oioioioi
+  //   </div>
+  // );
 };

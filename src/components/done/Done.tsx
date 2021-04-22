@@ -1,5 +1,9 @@
 import React from "react";
-import { Draggable, DroppableProvided } from "react-beautiful-dnd";
+import {
+  Draggable,
+  DroppableProvided,
+  DroppableStateSnapshot,
+} from "react-beautiful-dnd";
 import { Card } from "../card/Card";
 import "./Done.css";
 
@@ -15,11 +19,20 @@ interface DoneProps {
   doneList?: Array<data>;
   setList: React.Dispatch<React.SetStateAction<data[]>>;
   provided: DroppableProvided;
+  snapshot: DroppableStateSnapshot;
 }
 
-export const Done: React.FC<DoneProps> = ({ doneList, setList, provided }) => {
+const Done: React.FC<DoneProps> = ({
+  doneList,
+  setList,
+  provided,
+  snapshot,
+}) => {
   return (
-    <div className="todo">
+    <div
+      className="todo"
+      style={{ backgroundColor: snapshot.isDraggingOver ? "#a7deab" : "" }}
+    >
       <p className="todo__title">Completed</p>
       <div
         className="todo__cards"
@@ -29,8 +42,13 @@ export const Done: React.FC<DoneProps> = ({ doneList, setList, provided }) => {
         {doneList &&
           doneList.map((item, index) => (
             <Draggable draggableId={item.Key} index={index} key={item.Key}>
-              {(provided) => (
-                <Card provided={provided} data={item} setList={setList} />
+              {(provided, snapshott) => (
+                <Card
+                  snapshot={snapshott}
+                  provided={provided}
+                  data={item}
+                  setList={setList}
+                />
               )}
             </Draggable>
           ))}
@@ -39,3 +57,5 @@ export const Done: React.FC<DoneProps> = ({ doneList, setList, provided }) => {
     </div>
   );
 };
+
+export default React.memo(Done);
