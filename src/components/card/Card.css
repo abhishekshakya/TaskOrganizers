@@ -2,7 +2,7 @@
   margin: 0.7rem 0;
   /* border: 1px solid #2c2c2c; */
   padding: 00.5rem;
-  border-radius: 0.2rem;
+  border-radius: 0.5rem;
   position: relative;
   color: #2c2c2c;
   z-index: 0;
@@ -12,6 +12,18 @@
   transition: 100ms;
   display: flex;
   flex-direction: column;
+  /* animation: cardEntry 200ms ease-in-out; */
+}
+
+@keyframes cardEntry {
+  from {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .card:hover {
@@ -61,6 +73,7 @@
   border: none;
   outline: none;
   text-align: left;
+  /* height: 5rem; */
   width: 100%;
   padding: 3px;
   margin: 0.3em 0;
@@ -73,6 +86,16 @@
   color: #7f61b3;
 }
 
+.card__edesc::-webkit-scrollbar {
+  width: 3px;
+}
+
+.card__edesc::-webkit-scrollbar-thumb {
+  /* width: 3px; */
+  background-color: #525252;
+  border-radius: 20px;
+}
+
 .card__line {
   height: 0.3rem;
   border-radius: 15px;
@@ -83,11 +106,44 @@
   right: 0;
   margin: auto;
   width: 100%;
+  transition: all 200ms ease-in-out;
   /* background-color: #f03616; */
   /* background-color: #ffe600; */
   /* background-color: #3977eb; */
   /* box-shadow: 2px 2px 15px -2px #f7e64d; */
   /* box-shadow: 0px 0px 7px -1px #f03616; */
+}
+
+.card__line__input {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 1;
+  bottom: -10px;
+  /* left: 0; */
+  opacity: 1;
+  cursor: pointer;
+  z-index: 2;
+  right: -10px;
+  animation: priorityAnim 300ms ease-in-out;
+  transition: all 200ms ease-in-out;
+}
+
+.card__line__input:hover {
+  transform: scale(2);
+  /* opacity: 0.85; */
+}
+
+@keyframes priorityAnim {
+  from {
+    bottom: -10vh;
+    right: -10vh;
+  }
+  to {
+    bottom: -10px;
+    right: -10px;
+  }
 }
 
 .card__icons {

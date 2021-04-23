@@ -54,15 +54,28 @@ export const App: React.FC = () => {
     }
 
     if (destinationId === "todo") {
+      tempItem = {
+        ...tempItem,
+        Status: 0,
+      };
       todoTemp.splice(destinationIndex, 0, tempItem);
       setTodo([...todoTemp]);
     } else if (destinationId === "doing") {
+      tempItem = {
+        ...tempItem,
+        Status: 1,
+      };
       doingTemp.splice(destinationIndex, 0, tempItem);
       setDoing([...doingTemp]);
     } else {
+      tempItem = {
+        ...tempItem,
+        Status: 2,
+      };
       doneTemp.splice(destinationIndex, 0, tempItem);
       setDone([...doneTemp]);
     }
+    console.log(tempItem);
     console.log(result);
   };
 

@@ -32,6 +32,7 @@ export const Card: React.FC<CardProps> = ({
 
   const [title, setTitle] = useState(data.Title);
   const [desc, setDesc] = useState(data.Description);
+  const [priority, setPriority] = useState(data.Priority);
 
   const closeHandler = (key: string) => {
     setList((p) => p.filter((item) => item.Key !== key));
@@ -47,6 +48,10 @@ export const Card: React.FC<CardProps> = ({
     setDesc(e.target.value);
   };
 
+  const priorityHandler = () => {
+    setPriority((p) => (p + 1) % 3);
+  };
+
   return (
     <div
       {...provided.dragHandleProps}
@@ -60,12 +65,15 @@ export const Card: React.FC<CardProps> = ({
     >
       <div className="card__icons">
         {edit ? (
-          <IconButton style={{ padding: 7 }} onClick={(e) => setEdit(false)}>
+          <IconButton
+            style={{ padding: 7, display: data.Status !== 0 ? "none" : "" }}
+            onClick={(e) => setEdit(false)}
+          >
             <Done style={{ fontSize: 20, color: "#7f61b3" }} />
           </IconButton>
         ) : (
           <IconButton
-            style={{ padding: 7 }}
+            style={{ padding: 7, display: data.Status !== 0 ? "none" : "" }}
             onClick={(e) => editHandler(data.Key)}
           >
             <Edit style={{ fontSize: 20, color: "#2c2c2c" }} />
@@ -92,6 +100,15 @@ export const Card: React.FC<CardProps> = ({
             value={desc}
             onChange={descHandler}
           />
+
+          <div
+            className="card__line__input"
+            style={{
+              backgroundColor: Colors[priority],
+              boxShadow: `0px 0px 8px -1px ${Colors[priority]}`,
+            }}
+            onClick={priorityHandler}
+          />
         </>
       ) : (
         <>
@@ -105,26 +122,13 @@ export const Card: React.FC<CardProps> = ({
           </p>
         </>
       )}
-
-      {/* <p>{data.Priority}</p> */}
       <div
         className="card__line"
         style={{
-          backgroundColor: Colors[data.Priority],
-          boxShadow: `0px 0px 8px -1px ${Colors[data.Priority]}`,
+          backgroundColor: Colors[priority],
+          boxShadow: `0px 0px 8px -1px ${Colors[priority]}`,
         }}
       />
     </div>
   );
-  // return (
-  //   <div
-  //     {...provided.dragHandleProps}
-  //     {...provided.draggableProps}
-  //     ref={provided.innerRef}
-  //     className="card"
-  //     style={edit ? { borderTop: "4px solid #9473ce" } : undefined}
-  //   >
-  //     oioioioi
-  //   </div>
-  // );
 };
