@@ -63,6 +63,7 @@ const Done: React.FC<DoneProps> = ({
                     provided={provided}
                     data={item}
                     setList={setList}
+                    list={doneList}
                   />
                 )}
               </Draggable>

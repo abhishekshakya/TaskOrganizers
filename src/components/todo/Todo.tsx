@@ -79,6 +79,7 @@ const Todo: React.FC<Props> = ({ todoList, setList, provided, snapshot }) => {
                   snapshot={snapshott}
                   data={item}
                   setList={setList}
+                  list={todoList}
                 />
               )}
             </Draggable>

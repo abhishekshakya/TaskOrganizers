@@ -19,6 +19,7 @@ interface CardProps {
   setList: React.Dispatch<React.SetStateAction<data[]>>;
   provided: DraggableProvided;
   snapshot: DraggableStateSnapshot;
+  list: data[];
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -26,6 +27,7 @@ export const Card: React.FC<CardProps> = ({
   setList,
   provided,
   snapshot,
+  list,
 }) => {
   const [click, setClick] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -52,6 +54,27 @@ export const Card: React.FC<CardProps> = ({
     setPriority((p) => (p + 1) % 3);
   };
 
+  const applyEditHandler = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    let temp = list.map((item) => {
+      if (item.Key !== data.Key) {
+        return item;
+      } else {
+        return {
+          Description: desc,
+          Priority: priority,
+          Title: title,
+          Status: item.Status,
+          Key: item.Key,
+        };
+      }
+    });
+
+    setList([...temp]);
+    setEdit(false);
+  };
+
   return (
     <div
       {...provided.dragHandleProps}
@@ -67,7 +90,7 @@ export const Card: React.FC<CardProps> = ({
         {edit ? (
           <IconButton
             style={{ padding: 7, display: data.Status !== 0 ? "none" : "" }}
-            onClick={(e) => setEdit(false)}
+            onClick={applyEditHandler}
           >
             <Done style={{ fontSize: 20, color: "#7f61b3" }} />
           </IconButton>

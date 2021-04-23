@@ -75,8 +75,8 @@ export const App: React.FC = () => {
       doneTemp.splice(destinationIndex, 0, tempItem);
       setDone([...doneTemp]);
     }
-    console.log(tempItem);
-    console.log(result);
+    // console.log(tempItem);
+    // console.log(result);
   };
 
   return (
