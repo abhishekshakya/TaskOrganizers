@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Doing from "./components/doing/Doing";
 import Done from "./components/done/Done";
@@ -15,6 +15,7 @@ interface data {
   Status: number;
   Key: string;
 }
+
 
 export const App: React.FC = () => {
   const [todo, setTodo] = useState(
@@ -82,6 +83,7 @@ export const App: React.FC = () => {
   return (
     <div className="App">
       <Header />
+
       <div className="App__body">
         <DragDropContext onDragEnd={dragEnd}>
           <Droppable droppableId="todo">
