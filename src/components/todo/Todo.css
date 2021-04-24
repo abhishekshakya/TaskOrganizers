@@ -61,7 +61,7 @@
 }
 
 .todo__cards {
-  padding: 3rem 1rem 1rem 1rem;
+  padding: 4rem 0.5rem 0rem 0.5rem;
   height: 100%;
   /* border: 1px solid red; */
   overflow-x: hidden;

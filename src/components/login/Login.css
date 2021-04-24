@@ -1,0 +1,28 @@
+.imageContainer__login img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+.imageContainer__login {
+  width: 100%;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 450px;
+  margin: auto;
+  font-size: 19px;
+  margin-top: 2rem;
+  /* border: 1px solid black; */
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  box-shadow: 2px 2px 5px -1px rgb(71, 71, 71);
+  background-color: white;
+}
+
+.login > * {
+  margin: 0.5rem 0;
+}

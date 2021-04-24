@@ -31,12 +31,15 @@ export const App: React.FC = () => {
   const [done, setDone] = useState<data[]>([]);
   // todoData.filter((item) => item.Status === 2)
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const currentUser = firebase.auth().currentUser?.email;
 
   useEffect(() => {
     if (currentUser) {
       setDataLoaded(false);
+      setLoading(true);
       try {
         const fetchData = async () => {
           const snapshot = await firebase
@@ -60,6 +63,7 @@ export const App: React.FC = () => {
               });
           }
           setDataLoaded(true);
+          setLoading(false);
         };
         console.log("went");
         fetchData();
@@ -123,6 +127,7 @@ export const App: React.FC = () => {
   useEffect(() => {
     // console.log("harm");
     if (currentUser && dataLoaded) {
+      setSaving(true);
       const fetchData = async () => {
         try {
           // console.log(todo);
@@ -137,6 +142,7 @@ export const App: React.FC = () => {
         } catch (e) {
           console.log(e);
         }
+        setSaving(false);
       };
       fetchData();
     }
@@ -145,6 +151,7 @@ export const App: React.FC = () => {
   useEffect(() => {
     // console.log("harm");
     if (currentUser && dataLoaded) {
+      setSaving(true);
       const fetchData = async () => {
         try {
           // console.log(todo);
@@ -159,6 +166,7 @@ export const App: React.FC = () => {
         } catch (e) {
           console.log(e);
         }
+        setSaving(false);
       };
       fetchData();
     }
@@ -167,6 +175,7 @@ export const App: React.FC = () => {
   useEffect(() => {
     // console.log("harm");
     if (currentUser && dataLoaded) {
+      setSaving(true);
       const fetchData = async () => {
         try {
           // console.log(todo);
@@ -181,6 +190,7 @@ export const App: React.FC = () => {
         } catch (e) {
           console.log(e);
         }
+        setSaving(false);
       };
       fetchData();
     }
@@ -188,7 +198,7 @@ export const App: React.FC = () => {
 
   return (
     <div className="App">
-      <Header />
+      <Header saving={saving} />
 
       <div className="App__body">
         <DragDropContext onDragEnd={dragEnd}>
@@ -199,6 +209,7 @@ export const App: React.FC = () => {
                 snapshot={snapshot}
                 todoList={todo}
                 setList={setTodo}
+                loading={loading}
               />
             )}
           </Droppable>
@@ -209,6 +220,7 @@ export const App: React.FC = () => {
                 provided={provided}
                 doneList={doing}
                 setList={setDoing}
+                loading={loading}
               />
             )}
           </Droppable>
@@ -220,6 +232,7 @@ export const App: React.FC = () => {
                 provided={provided}
                 doneList={done}
                 setList={setDone}
+                loading={loading}
               />
             )}
           </Droppable>

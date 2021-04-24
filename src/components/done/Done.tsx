@@ -8,6 +8,7 @@ import {
 } from "react-beautiful-dnd";
 import { Card } from "../card/Card";
 import "./Done.css";
+import { SkeletonCard } from "../skeleton/SkeletonCard";
 
 interface data {
   Title: string;
@@ -22,6 +23,7 @@ interface DoneProps {
   setList: React.Dispatch<React.SetStateAction<data[]>>;
   provided: DroppableProvided;
   snapshot: DroppableStateSnapshot;
+  loading: boolean;
 }
 
 const Done: React.FC<DoneProps> = ({
@@ -29,6 +31,7 @@ const Done: React.FC<DoneProps> = ({
   setList,
   provided,
   snapshot,
+  loading,
 }) => {
   const sortHandler = () => {
     setList((p) => [...p.sort((a, b) => b.Priority - a.Priority)]);
@@ -50,25 +53,26 @@ const Done: React.FC<DoneProps> = ({
           ref={provided.innerRef}
           {...provided.droppableProps}
         >
-          {!doneList || doneList.length === 0 ? (
-            <div className="imageContainer">
-              <img src={image} />
-            </div>
-          ) : (
-            doneList.map((item, index) => (
-              <Draggable draggableId={item.Key} index={index} key={item.Key}>
-                {(provided, snapshott) => (
-                  <Card
-                    snapshot={snapshott}
-                    provided={provided}
-                    data={item}
-                    setList={setList}
-                    list={doneList}
-                  />
-                )}
-              </Draggable>
-            ))
-          )}
+          {!doneList || doneList.length === 0
+            ? !loading && (
+                <div className="imageContainer">
+                  <img src={image} />
+                </div>
+              )
+            : doneList.map((item, index) => (
+                <Draggable draggableId={item.Key} index={index} key={item.Key}>
+                  {(provided, snapshott) => (
+                    <Card
+                      snapshot={snapshott}
+                      provided={provided}
+                      data={item}
+                      setList={setList}
+                      list={doneList}
+                    />
+                  )}
+                </Draggable>
+              ))}
+          {loading && [1, 2, 3, 4].map((item) => <SkeletonCard key={item} />)}
           {provided.placeholder}
         </div>
       }

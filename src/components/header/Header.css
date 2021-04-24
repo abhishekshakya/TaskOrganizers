@@ -1,8 +1,76 @@
 .header {
-  padding: 1.5rem;
+  padding: 0.55rem;
   /* font-size: 2rem; */
   background-color: #699bf7;
   color: white;
   margin-bottom: 1rem;
   box-shadow: 1px 3px 6px 2px #bdbdbd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header > div > p {
+  font-size: 18px;
+  /* font-weight: bold; */
+}
+.header > p {
+  font-size: 20px;
+  cursor: default;
+  font-weight: bold;
+  background-color: white;
+  color: #525252;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  box-shadow: 2px 2px 6px -1px #304173;
+}
+
+.imageContainerHeader img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* border: 3px solid rgb(36, 36, 36); */
+}
+
+.imageContainerHeader {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  margin: 0 5px;
+  z-index: 3;
+  background-color: white;
+  /* box-shadow: 1px 3px 6px 2px #797979; */
+  /* animation: savingAnimation 1s ease-in-out infinite; */
+}
+
+.header > div {
+  position: relative;
+}
+
+.saving {
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  z-index: 2;
+  border-radius: 50%;
+  top: -3px;
+  left: 2px;
+  /* background-color: #ff3300; */
+  background-color: #ff3c00;
+  background-image: linear-gradient(315deg, #ff3c00 0%, #f7b189 70%);
+  animation: savingAnimation 800ms linear infinite;
+}
+
+@keyframes savingAnimation {
+  from {
+    /* border: 3px solid greenyellow; */
+    transform: rotate(0deg);
+  }
+  to {
+    /* border: none; */
+    transform: rotate(360deg);
+  }
 }
