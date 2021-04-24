@@ -7,6 +7,7 @@ import Todo from "./components/todo/Todo";
 import { todoData } from "./Data/todo";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import dnd from "react-beautiful-dnd";
+import firebase from "./firebase";
 
 interface data {
   Title: string;
@@ -16,17 +17,57 @@ interface data {
   Key: string;
 }
 
+// interface board {
+//   id: string;
+//   name: number;
+// }
 
 export const App: React.FC = () => {
-  const [todo, setTodo] = useState(
-    todoData.filter((item) => item.Status === 0)
-  );
-  const [doing, setDoing] = useState(
-    todoData.filter((item) => item.Status === 1)
-  );
-  const [done, setDone] = useState(
-    todoData.filter((item) => item.Status === 2)
-  );
+  // console.log(props.match.params.id);
+  const [todo, setTodo] = useState<data[]>([]);
+  // todoData.filter((item) => item.Status === 0)
+  const [doing, setDoing] = useState<data[]>([]);
+  // todoData.filter((item) => item.Status === 1)
+  const [done, setDone] = useState<data[]>([]);
+  // todoData.filter((item) => item.Status === 2)
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+  const currentUser = firebase.auth().currentUser?.email;
+
+  useEffect(() => {
+    if (currentUser) {
+      setDataLoaded(false);
+      try {
+        const fetchData = async () => {
+          const snapshot = await firebase
+            .firestore()
+            .collection("users")
+            .doc(currentUser)
+            .get();
+          if (snapshot.data()) {
+            setDoing(snapshot.data()?.doing);
+            setTodo(snapshot.data()?.todo);
+            setDone(snapshot.data()?.done);
+          } else {
+            await firebase
+              .firestore()
+              .collection("users")
+              .doc(currentUser)
+              .set({
+                todo: [],
+                doing: [],
+                done: [],
+              });
+          }
+          setDataLoaded(true);
+        };
+        console.log("went");
+        fetchData();
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }, [currentUser]);
 
   const dragEnd = (result: dnd.DropResult) => {
     // console.log("Result");
@@ -40,7 +81,6 @@ export const App: React.FC = () => {
     let todoTemp = [...todo];
     let doingTemp = [...doing];
     let doneTemp = [...done];
-
     let tempItem: data | undefined = undefined;
 
     if (sourceId === "todo") {
@@ -79,6 +119,72 @@ export const App: React.FC = () => {
     // console.log(tempItem);
     // console.log(result);
   };
+
+  useEffect(() => {
+    // console.log("harm");
+    if (currentUser && dataLoaded) {
+      const fetchData = async () => {
+        try {
+          // console.log(todo);
+          await firebase
+            .firestore()
+            .collection("users")
+            .doc(currentUser)
+            .update({
+              todo,
+            });
+          console.log("updated..todo");
+        } catch (e) {
+          console.log(e);
+        }
+      };
+      fetchData();
+    }
+  }, [todo, currentUser, dataLoaded]);
+
+  useEffect(() => {
+    // console.log("harm");
+    if (currentUser && dataLoaded) {
+      const fetchData = async () => {
+        try {
+          // console.log(todo);
+          await firebase
+            .firestore()
+            .collection("users")
+            .doc(currentUser)
+            .update({
+              doing,
+            });
+          console.log("updated... doing");
+        } catch (e) {
+          console.log(e);
+        }
+      };
+      fetchData();
+    }
+  }, [doing, currentUser, dataLoaded]);
+
+  useEffect(() => {
+    // console.log("harm");
+    if (currentUser && dataLoaded) {
+      const fetchData = async () => {
+        try {
+          // console.log(todo);
+          await firebase
+            .firestore()
+            .collection("users")
+            .doc(currentUser)
+            .update({
+              done,
+            });
+          console.log("updated... done");
+        } catch (e) {
+          console.log(e);
+        }
+      };
+      fetchData();
+    }
+  }, [done, currentUser, dataLoaded]);
 
   return (
     <div className="App">

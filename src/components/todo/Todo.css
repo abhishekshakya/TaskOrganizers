@@ -88,16 +88,16 @@
   /* border: 1px solid red; */
   width: 100%;
   height: 100%;
-  animation: cardEntry 100ms ease-in-out;
+  animation: cardEntry 200ms ease-in-out;
 }
 
 @keyframes cardEntry {
   from {
-    transform: scale(0.4);
+    /* transform: scale(0.4); */
     opacity: 0;
   }
   to {
-    transform: scale(1);
+    /* transform: scale(1); */
     opacity: 1;
   }
 }

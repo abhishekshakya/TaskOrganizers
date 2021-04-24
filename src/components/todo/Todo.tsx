@@ -4,6 +4,8 @@ import "./Todo.css";
 import dnd, { Draggable, DroppableStateSnapshot } from "react-beautiful-dnd";
 import { Add, Sort } from "@material-ui/icons";
 import image from "../../146.jpg";
+import { v4 as uuid } from "uuid";
+// console.log(uuid().toString());
 
 interface data {
   Title: string;
@@ -34,7 +36,7 @@ const Todo: React.FC<Props> = ({ todoList, setList, provided, snapshot }) => {
       Title: "Add Your Title",
       Description: "Task Description",
       Priority: 0,
-      Key: (todoList ? todoList.length + 1 : 100).toString(),
+      Key: uuid().toString(),
       Status: 0,
     };
     setList((p) => [temp, ...p]);

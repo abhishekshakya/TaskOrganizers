@@ -17,11 +17,12 @@ const Listener: React.FC = () => {
   useEffect(() => {
     const listener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        history.push("/organizer/asdfasdf");
+        history.push("/organizer/1");
       } else {
         history.push("/login");
       }
     });
+    return () => listener();
   }, []);
   return <></>;
 };

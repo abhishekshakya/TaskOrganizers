@@ -12,7 +12,7 @@ export const Login: React.FC<LoginProps> = ({}) => {
 
     try {
       const result = await firebase.auth().signInWithPopup(provider);
-      console.log(result);
+      // console.log(result);
     } catch (e) {
       console.log(e);
     }
