@@ -16,6 +16,7 @@ interface data {
   Priority: number;
   Status: number;
   Key: string;
+  Edit: boolean;
 }
 
 interface DoingProps {

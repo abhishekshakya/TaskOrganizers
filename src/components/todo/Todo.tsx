@@ -14,6 +14,7 @@ interface data {
   Priority: number;
   Status: number;
   Key: string;
+  Edit: boolean;
 }
 
 interface Props {
@@ -41,11 +42,12 @@ const Todo: React.FC<Props> = ({
 
   const addHandler = () => {
     const temp: data = {
-      Title: "Add Your Title",
-      Description: "Task Description",
+      Title: "",
+      Description: "",
       Priority: 0,
       Key: uuid().toString(),
       Status: 0,
+      Edit: true,
     };
     setList((p) => [temp, ...p]);
     // let elem = document.getElementsByClassName("card");

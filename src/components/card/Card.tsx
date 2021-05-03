@@ -10,6 +10,7 @@ interface data {
   Priority: number;
   Status: number;
   Key: string;
+  Edit: boolean;
 }
 
 const Colors = ["#3977eb", "#ffe600", "#f03616"];
@@ -30,7 +31,7 @@ export const Card: React.FC<CardProps> = ({
   list,
 }) => {
   const [click, setClick] = useState(false);
-  const [edit, setEdit] = useState(false);
+  const [edit, setEdit] = useState(data.Edit);
 
   const [title, setTitle] = useState(data.Title);
   const [desc, setDesc] = useState(data.Description);
@@ -41,6 +42,19 @@ export const Card: React.FC<CardProps> = ({
   };
 
   const editHandler = (key: string) => {
+    let temp = list.map((item) => {
+      if (item.Key !== key) {
+        return item;
+      } else {
+        return {
+          ...item,
+          Edit: true,
+        };
+      }
+    });
+    // let element = { ...list.filter((item) => item.Key === key)[0], Edit: true };
+    // setList((p) => [...p, element]);
+    setList([...temp]);
     setEdit(true);
   };
 
@@ -61,12 +75,19 @@ export const Card: React.FC<CardProps> = ({
       if (item.Key !== data.Key) {
         return item;
       } else {
+        if (!desc) {
+          setDesc("Added Description");
+        }
+        if (!title) {
+          setTitle("New Title");
+        }
         return {
-          Description: desc,
+          Description: desc.length !== 0 ? desc : "Added Description",
           Priority: priority,
-          Title: title,
+          Title: title.length !== 0 ? title : "New Title",
           Status: item.Status,
           Key: item.Key,
+          Edit: false,
         };
       }
     });
@@ -116,12 +137,14 @@ export const Card: React.FC<CardProps> = ({
           <input
             className="card__etitle"
             value={title}
+            placeholder="Add Your Title"
             onChange={(e) => setTitle(e.target.value)}
           />
           <textarea
             className="card__edesc"
             value={desc}
             onChange={descHandler}
+            placeholder="Add Description"
           />
 
           <div

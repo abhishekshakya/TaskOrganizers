@@ -12,6 +12,8 @@
   transition: 100ms;
   display: flex;
   flex-direction: column;
+  /* min-height: 100px;
+  max-height: fit-content; */
   /* animation: cardEntry 200ms ease-in-out; */
 }
 

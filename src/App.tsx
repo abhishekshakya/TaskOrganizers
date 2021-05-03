@@ -4,7 +4,6 @@ import Doing from "./components/doing/Doing";
 import Done from "./components/done/Done";
 import { Header } from "./components/header/Header";
 import Todo from "./components/todo/Todo";
-import { todoData } from "./Data/todo";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import dnd from "react-beautiful-dnd";
 import firebase from "./firebase";
@@ -15,6 +14,7 @@ interface data {
   Priority: number;
   Status: number;
   Key: string;
+  Edit: boolean;
 }
 
 // interface board {
@@ -198,45 +198,53 @@ export const App: React.FC = () => {
 
   return (
     <div className="App">
-      <Header saving={saving} />
+      <Header
+        saving={saving}
+        setLoading={setLoading}
+        setTodo={setTodo}
+        setDoing={setDoing}
+        setDone={setDone}
+      />
 
-      <div className="App__body">
-        <DragDropContext onDragEnd={dragEnd}>
-          <Droppable droppableId="todo">
-            {(provided, snapshot) => (
-              <Todo
-                provided={provided}
-                snapshot={snapshot}
-                todoList={todo}
-                setList={setTodo}
-                loading={loading}
-              />
-            )}
-          </Droppable>
-          <Droppable droppableId="doing">
-            {(provided, snapshot) => (
-              <Doing
-                snapshot={snapshot}
-                provided={provided}
-                doneList={doing}
-                setList={setDoing}
-                loading={loading}
-              />
-            )}
-          </Droppable>
+      <div className="body__cover">
+        <div className="App__body">
+          <DragDropContext onDragEnd={dragEnd}>
+            <Droppable droppableId="todo">
+              {(provided, snapshot) => (
+                <Todo
+                  provided={provided}
+                  snapshot={snapshot}
+                  todoList={todo}
+                  setList={setTodo}
+                  loading={loading}
+                />
+              )}
+            </Droppable>
+            <Droppable droppableId="doing">
+              {(provided, snapshot) => (
+                <Doing
+                  snapshot={snapshot}
+                  provided={provided}
+                  doneList={doing}
+                  setList={setDoing}
+                  loading={loading}
+                />
+              )}
+            </Droppable>
 
-          <Droppable droppableId="done">
-            {(provided, snapshot) => (
-              <Done
-                snapshot={snapshot}
-                provided={provided}
-                doneList={done}
-                setList={setDone}
-                loading={loading}
-              />
-            )}
-          </Droppable>
-        </DragDropContext>
+            <Droppable droppableId="done">
+              {(provided, snapshot) => (
+                <Done
+                  snapshot={snapshot}
+                  provided={provided}
+                  doneList={done}
+                  setList={setDone}
+                  loading={loading}
+                />
+              )}
+            </Droppable>
+          </DragDropContext>
+        </div>
       </div>
     </div>
   );
